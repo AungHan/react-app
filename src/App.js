@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
 
@@ -19,7 +18,8 @@ class App extends Component {
         age: 23
       }
     ],
-    otherState: "Others"
+    otherState: "Others",
+    showPersons: false
   }
 
   switchHandler = (newName) => {
@@ -60,6 +60,12 @@ class App extends Component {
     })
   }
 
+  togglePerson = () => {
+    this.setState({
+      showPersons: !this.state.showPersons
+    })
+  }
+
   render() {
     // inline style
     const buttonStyle = {
@@ -74,20 +80,25 @@ class App extends Component {
         <h1>React App</h1>
         <button 
           style={buttonStyle}
-          onClick={() => this.switchHandler('Bobby')}>Switch Name</button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}
-          click={this.switchHandler.bind(this, 'Max')}
-          nameChangedHandler={this.nameChangedHandler}/>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          nameChangedHandler={this.nameChangedHandler}/>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}
-          nameChangedHandler={this.nameChangedHandler}/>
+          onClick={this.togglePerson}>Switch Name</button>
+        { 
+          this.state.showPersons ?
+            <div>
+            <Person 
+              name={this.state.persons[0].name} 
+              age={this.state.persons[0].age}
+              click={this.switchHandler.bind(this, 'Max')}
+              nameChangedHandler={this.nameChangedHandler}/>
+            <Person 
+              name={this.state.persons[1].name} 
+              age={this.state.persons[1].age}
+              nameChangedHandler={this.nameChangedHandler}/>
+            <Person 
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age}
+              nameChangedHandler={this.nameChangedHandler}/>
+            </div> : null
+        }
       </div>
     );
   }
