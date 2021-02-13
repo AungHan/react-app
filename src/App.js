@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+      background-color: ${props => props.alt === "true" ? 'red' : 'green'};
+      color: white;
+      font: inherit;
+      border: 1px solid blue;
+      padding: 8px;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: ${props => props.alt === "true" ? 'salmon' : 'lightgreen'};
+        color: black;
+      }
+    `;
 
 class App extends Component {
   state = {
@@ -52,15 +67,6 @@ class App extends Component {
   }
 
   render() {
-    // inline style
-    const buttonStyle = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    }
-
     let persons = null;
     if (this.state.showPersons){
       persons = (
@@ -79,14 +85,25 @@ class App extends Component {
       )
     }
 
+    let classes = [];
+    if(this.state.persons.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.persons.length <= 1){
+      classes.push('bold');
+    }
+    // <button  onClick={this.togglePerson}>Toggle Persons</button>
+
     return (
-      <div className="App">
-        <h1>React App</h1>
-        <button 
-          style={buttonStyle}
-          onClick={this.togglePerson}>Switch Name</button>
-        {persons}
-      </div>
+        <div className="App">
+          <h1>React App</h1>
+          <p className={classes.join(' ')}>App description</p>
+          
+          <StyledButton alt={this.state.showPersons ? "true" : "false"} onClick={this.togglePerson}>
+          Toggle Persons
+          </StyledButton>
+          {persons}
+        </div>
     );
   }
 }
