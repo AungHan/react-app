@@ -99,9 +99,9 @@ class App extends Component {
           <h1>React App</h1>
           <p className={classes.join(' ')}>App description</p>
           
-          <StyledButton alt={this.state.showPersons ? "true" : "false"} onClick={this.togglePerson}>
+          <button className="button" alt={this.state.showPersons ? "true" : "false"} onClick={this.togglePerson}>
           Toggle Persons
-          </StyledButton>
+          </button>
           {persons}
         </div>
     );

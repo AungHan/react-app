@@ -20,6 +20,6 @@
 }
 
 .button:hover {
-  background-color: red;
+  background-color: lightgreen;
   color: black;
 }
