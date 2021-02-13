@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
+import Cockpit from '../components/Cockpit/Cockpit';
+import Persons from '../components/Persons/Persons';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -68,44 +69,26 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let btnClass = '';
+    
 
     if (this.state.showPersons){
       persons = (
         <div>
-          {
-            this.state.persons.map((person, index) => {
-              return <Person 
-                    key={person.id}
-                    click={() => this.deletePersonHandler(index)}
-                    name={person.name}
-                    age={person.age}
-                    changed={(event) => this.nameChangedHandler(event, person.id)}/>
-            })
-          }
+          <Persons 
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler}/>
         </div> 
       )
-
-      btnClass = classes.Red;
     }
-
-    let assigendClasses = [];
-    if(this.state.persons.length <= 2){
-      assigendClasses.push(classes.red);
-    }
-    if(this.state.persons.length <= 1){
-      assigendClasses.push(classes.bold);
-    }
-    // <button  onClick={this.togglePerson}>Toggle Persons</button>
 
     return (
         <div className={classes.App}>
-          <h1>React App</h1>
-          <p className={assigendClasses.join(' ')}>App description</p>
-          
-          <button className={btnClass} alt={this.state.showPersons ? "true" : "false"} onClick={this.togglePerson}>
-          Toggle Persons
-          </button>
+          <Cockpit 
+            persons={this.state.persons}
+            showPersons={this.state.showPersons}
+            clicked={this.togglePerson}
+            />
           {persons}
         </div>
     );
