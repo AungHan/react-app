@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = (props) => {
-    let assigendClasses = [];
-    let btnClass = props.showPersons ? classes.Red : '';
+  // run every render cycle
+  // 2nd argument -> array, allows subscribe for intended properties
+  // to use effect, to run one time only, pass empty array []
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // Http request...
+    setTimeout(() => {
+      alert('saved data');
+    }, 1000);
 
-    if(props.persons.length <= 2){
-      assigendClasses.push(classes.red);
-    }
-    if(props.persons.length <= 1){
-      assigendClasses.push(classes.bold);
-    }
+    // before main useEffect, after first render cycle
+    return () => {
+      console.log('[Cockpit.js] cleanup work');
+    };
+  }, []);
 
-    return (
-        <div className={classes.Cockpit}>
-            <h1>{props.title}</h1>
-            <p className={assigendClasses.join(' ')}>App description</p>
-            <button className={btnClass} alt={props.showPersons ? "true" : "false"} onClick={props.clicked}>
-            Toggle Persons
-            </button>
-        </div>
-    );
+  let assigendClasses = [];
+  let btnClass = props.showPersons ? classes.Red : '';
+
+  if(props.persons.length <= 2){
+    assigendClasses.push(classes.red);
+  }
+  if(props.persons.length <= 1){
+    assigendClasses.push(classes.bold);
+  }
+
+  return (
+      <div className={classes.Cockpit}>
+          <h1>{props.title}</h1>
+          <p className={assigendClasses.join(' ')}>App description</p>
+          <button className={btnClass} alt={props.showPersons ? "true" : "false"} onClick={props.clicked}>
+          Toggle Persons
+          </button>
+      </div>
+  );
 };
 
 export default Cockpit;
