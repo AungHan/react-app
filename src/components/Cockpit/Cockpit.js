@@ -12,19 +12,27 @@ const Cockpit = (props) => {
       alert('saved data');
     }, 1000);
 
+    // return func causes clean up useEffect
     // before main useEffect, after first render cycle
     return () => {
       console.log('[Cockpit.js] cleanup work');
     };
   }, []);
 
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] 2nd cleanup work');
+    };
+  });
+
   let assigendClasses = [];
   let btnClass = props.showPersons ? classes.Red : '';
 
-  if(props.persons.length <= 2){
+  if(props.personLength <= 2){
     assigendClasses.push(classes.red);
   }
-  if(props.persons.length <= 1){
+  if(props.personLength <= 1){
     assigendClasses.push(classes.bold);
   }
 
@@ -39,4 +47,4 @@ const Cockpit = (props) => {
   );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);
