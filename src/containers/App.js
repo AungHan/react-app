@@ -3,6 +3,7 @@ import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 import styled from 'styled-components';
+import WithClass from '../hoc/withClass';
 
 const StyledButton = styled.button`
       background-color: ${props => props.alt === "true" ? 'red' : 'green'};
@@ -117,11 +118,11 @@ class App extends Component {
     ) : null;
 
     return (
-        <div className={classes.App}>
+        <WithClass classes={classes.App}>
           <button onClick={() => this.setState({showCockpit: !this.state.showCockpit})}>Toggle Cockpit</button>
           {cockpit}
           {persons}
-        </div>
+        </WithClass>
     );
   }
 }
