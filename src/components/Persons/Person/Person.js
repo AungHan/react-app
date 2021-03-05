@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import classes from './Person.css';
 import styled from 'styled-components';
+import Aux from '../../../hoc/Aux';
+
 
 const StyledDiv = styled.div`
         width: 60%;
@@ -18,10 +20,12 @@ class Person extends Component {
     render(){
         console.log('[Person.js] render');
         return (
-            <div className={classes.Person}>
-                <p onClick={this.props.click}>Name: {this.props.name} - Age: {this.props.age}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}/>
-            </div>    
+            <Fragment>
+                <div className={classes.Person}>
+                    <p onClick={this.props.click}>Name: {this.props.name} - Age: {this.props.age}</p>
+                    <input type="text" onChange={this.props.changed} value={this.props.name}/>
+                </div>
+            </Fragment>
         );
     }
 }
