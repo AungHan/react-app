@@ -3,6 +3,7 @@ import classes from './Person.css';
 import styled from 'styled-components';
 import Aux from '../../../hoc/Aux';
 import withClass from '../../../hoc/withClass';
+import PropTypes from 'prop-types';
 
 
 const StyledDiv = styled.div`
@@ -30,5 +31,14 @@ class Person extends Component {
         );
     }
 }
+
+// good for warning/exception for caller to know 
+// prop types
+Person.propTypes = {
+    age: PropTypes.number,
+    name: PropTypes.string,
+    click: PropTypes.func,
+    changed: PropTypes.func
+};
 
 export default withClass(Person, classes.Person);
