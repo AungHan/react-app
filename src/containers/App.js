@@ -4,6 +4,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 import styled from 'styled-components';
 import withClass from '../hoc/withClass';
+import AuthContext from '../context/auth-context';
 
 const StyledButton = styled.button`
       background-color: ${props => props.alt === "true" ? 'red' : 'green'};
@@ -46,7 +47,8 @@ class App extends Component {
     otherState: "Others",
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props, state){
@@ -98,6 +100,12 @@ class App extends Component {
     })
   }
 
+  loginHandler = () => {
+    this.setState({
+      authenticated: true
+    })
+  }
+
   render() {
     console.log('[App.js] render');
     let persons = null;
@@ -109,7 +117,8 @@ class App extends Component {
           <Persons 
             persons={this.state.persons}
             clicked={this.deletePersonHandler}
-            changed={this.nameChangedHandler}/>
+            changed={this.nameChangedHandler}
+            isAuthenticated={this.state.authenticated}/>
         </div> 
       )
     }
@@ -120,15 +129,24 @@ class App extends Component {
             personLength={this.state.persons.length}
             showPersons={this.state.showPersons}
             clicked={this.togglePerson}
+            login={this.loginHandler}
             />
     ) : null;
+
+    let contextValue = {
+      authenticated: this.state.authenticated,
+      login: this.loginHandler
+    };
 
     return (
         // <WithClass classes={classes.App}>
         <div>
           <button onClick={() => this.setState({showCockpit: !this.state.showCockpit})}>Toggle Cockpit</button>
-          {cockpit}
-          {persons}
+          
+          <AuthContext.Provider value={contextValue}>
+            {cockpit}
+            {persons}
+          </AuthContext.Provider> 
         </div>
         // </WithClass>
     );
