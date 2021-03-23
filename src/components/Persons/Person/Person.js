@@ -19,13 +19,31 @@ const StyledDiv = styled.div`
     `;
 
 class Person extends Component {
+    constructor(props){
+        super(props);
+        this.inputElementRef = React.createRef();
+    }
+
+    componentDidMount(){
+        //this.inputElement.focus();
+        this.inputElementRef.current.focus();
+    }
     render(){
         console.log('[Person.js] render');
         return (
             <Fragment>
                 <div>
-                    <p onClick={this.props.click}>Name: {this.props.name} - Age: {this.props.age}</p>
-                    <input type="text" onChange={this.props.changed} value={this.props.name}/>
+                    <p 
+                        onClick={this.props.click}>
+                        Name: {this.props.name} - Age: {this.props.age}
+                    </p>
+                    <input 
+                        key="i3"
+                        // ref={(inputEle) => {this.inputElement = inputEle}}
+                        ref={this.inputElementRef}
+                        type="text" 
+                        onChange={this.props.changed} 
+                        value={this.props.name}/>
                 </div>
             </Fragment>
         );

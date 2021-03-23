@@ -48,7 +48,8 @@ class Persons extends PureComponent {
 
 Persons.propTypes = {
   persons: PropTypes.array,
-  changed: PropTypes.func
+  changed: PropTypes.func,
+  clicked: PropTypes.func
 };
 
 export default Persons;
