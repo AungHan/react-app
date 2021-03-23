@@ -3,7 +3,7 @@ import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 import styled from 'styled-components';
-import WithClass from '../hoc/withClass';
+import withClass from '../hoc/withClass';
 
 const StyledButton = styled.button`
       background-color: ${props => props.alt === "true" ? 'red' : 'green'};
@@ -45,7 +45,8 @@ class App extends Component {
     ],
     otherState: "Others",
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
   }
 
   static getDerivedStateFromProps(props, state){
@@ -73,9 +74,14 @@ class App extends Component {
     person.name = event.target.value;
     let persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState({
-      persons: persons
-    })
+
+    this.setState((prevState, props) => {
+      let newState = {
+          persons: person,
+          changeCounter: prevState.changeCounter + 1
+        };
+      return newState;
+    });
   }
 
   deletePersonHandler = (index) => {
@@ -118,13 +124,15 @@ class App extends Component {
     ) : null;
 
     return (
-        <WithClass classes={classes.App}>
+        // <WithClass classes={classes.App}>
+        <div>
           <button onClick={() => this.setState({showCockpit: !this.state.showCockpit})}>Toggle Cockpit</button>
           {cockpit}
           {persons}
-        </WithClass>
+        </div>
+        // </WithClass>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

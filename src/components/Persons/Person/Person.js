@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import classes from './Person.css';
 import styled from 'styled-components';
 import Aux from '../../../hoc/Aux';
+import withClass from '../../../hoc/withClass';
 
 
 const StyledDiv = styled.div`
@@ -21,7 +22,7 @@ class Person extends Component {
         console.log('[Person.js] render');
         return (
             <Fragment>
-                <div className={classes.Person}>
+                <div>
                     <p onClick={this.props.click}>Name: {this.props.name} - Age: {this.props.age}</p>
                     <input type="text" onChange={this.props.changed} value={this.props.name}/>
                 </div>
@@ -30,4 +31,4 @@ class Person extends Component {
     }
 }
 
-export default Person;
+export default withClass(Person, classes.Person);
